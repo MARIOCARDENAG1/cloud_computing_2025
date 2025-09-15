@@ -1,0 +1,50 @@
+services:
+  db:
+    build: ./db
+    volumes:
+      - db_data:/data/db
+    networks:
+      - backend
+    ports:
+      - "127.0.0.1:27017:27017"
+
+  web1:
+    build: ./app
+    depends_on:
+      - db
+    networks:
+      - frontend
+      - backend
+    environment:
+      - MONGO_HOST=db
+    ports:
+      - "5001:5000"
+
+  web2:
+    build: ./app
+    depends_on:
+      - db
+    networks:
+      - frontend
+      - backend
+    environment:
+      - MONGO_HOST=db
+    ports:
+      - "5002:5000"
+
+  lb:
+    build: ./lb
+    depends_on:
+      - web1
+      - web2
+    networks:
+      - frontend
+    ports:
+      - "8080:80"
+
+volumes:
+  db_data:
+
+networks:
+  frontend:
+  backend:
