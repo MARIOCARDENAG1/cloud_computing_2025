@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <body>
+    <h1>Buscar Notas</h1>
+    <form method="post">
+      Tag: <input name="tag">
+      <button type="submit">Buscar</button>
+    </form>
+    {% if results %}
+      <ul>
+      {% for n in results %}
+        <li><strong>{{ n.email }}</strong>: {{ n.text }} [{{ n.tags|join(", ") }}]</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    <a href="/create">Crear nota</a>
+  </body>
+</html>

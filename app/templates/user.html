@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <body>
+    <h1>Notas de {{ email }}</h1>
+    {% if results %}
+      <ul>
+      {% for n in results %}
+        <li>{{ n.text }} (Tags: {{ n.tags|join(", ") }})</li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p>No hay notas.</p>
+    {% endif %}
+    <a href="/create">Crear otra nota</a>
+  </body>
+</html>
